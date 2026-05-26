@@ -3,49 +3,131 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Resume Keyword Analyzer</title>
+
+  <title>FindIt - Smart Lost & Found Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app">
     <section class="hero">
-      <span class="badge">AI Portfolio Project</span>
-      <h1>AI Resume Keyword Analyzer</h1>
+      <span class="tag">Community Impact Project</span>
+      <h1>FindIt — Smart Lost & Found Hub</h1>
       <p>
-        Compare your resume with a job description and get an AI-style analysis
-        including keyword match score, missing skills, strengths, and improvement tips.
+        Report lost or found items, track community reports, and use AI-style matching
+        to suggest possible matches between lost and found items.
       </p>
+
+      <div class="hero-actions">
+        <button onclick="scrollToForm()">Report Item</button>
+        <button class="secondary" onclick="loadSampleData()">Load Sample Data</button>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat-card">
+        <p>Total Reports</p>
+        <h2 id="totalReports">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <p>Lost Items</p>
+        <h2 id="lostCount">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <p>Found Items</p>
+        <h2 id="foundCount">0</h2>
+      </div>
+
+      <div class="stat-card">
+        <p>Possible Matches</p>
+        <h2 id="matchCount">0</h2>
+      </div>
     </section>
 
     <section class="layout">
-      <div class="card input-card">
-        <h2>Resume & Job Details</h2>
+      <div class="card" id="reportForm">
+        <h2>Report Lost / Found Item</h2>
 
-        <label for="jobTitle">Target Job Title</label>
-        <input type="text" id="jobTitle" placeholder="Example: Web Developer, Data Analyst, AI Engineer" />
+        <label for="type">Report Type</label>
+        <select id="type">
+          <option value="Lost">Lost Item</option>
+          <option value="Found">Found Item</option>
+        </select>
 
-        <label for="resumeText">Paste Resume Text</label>
-        <textarea id="resumeText" placeholder="Paste your resume content here..."></textarea>
+        <label for="title">Item Name</label>
+        <input type="text" id="title" placeholder="Example: Black wallet, iPhone, Student ID card" />
 
-        <label for="jobDescription">Paste Job Description</label>
-        <textarea id="jobDescription" placeholder="Paste the job description here..."></textarea>
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="Electronics">Electronics</option>
+          <option value="Wallet / Money">Wallet / Money</option>
+          <option value="ID / Card">ID / Card</option>
+          <option value="Bag">Bag</option>
+          <option value="Keys">Keys</option>
+          <option value="Books / Notes">Books / Notes</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Others">Others</option>
+        </select>
 
-        <button onclick="analyzeResume()">Analyze Resume</button>
-        <button class="secondary" onclick="loadDemo()">Load Demo Data</button>
-        <button class="danger" onclick="clearHistory()">Clear History</button>
+        <label for="location">Last Seen / Found Location</label>
+        <input type="text" id="location" placeholder="Example: Library, Cafeteria, Block A" />
+
+        <label for="date">Date</label>
+        <input type="date" id="date" />
+
+        <label for="contact">Contact Info</label>
+        <input type="text" id="contact" placeholder="Example: email, phone number, Instagram, office counter" />
+
+        <label for="description">Description / Keywords</label>
+        <textarea id="description" placeholder="Example: black leather wallet with student card inside"></textarea>
+
+        <button onclick="addReport()">Submit Report</button>
+        <button class="dark" onclick="exportJSON()">Export Data</button>
+        <button class="danger" onclick="resetData()">Reset All Data</button>
       </div>
 
-      <div class="card result-card">
-        <h2>Analysis Result</h2>
-        <div id="result" class="empty">
-          Paste your resume and job description, then click analyze.
-        </div>
+      <div class="card">
+        <h2>AI-Style Match Suggestions</h2>
+        <p class="muted">
+          The system compares item name, category, location, and description keywords.
+        </p>
+
+        <div id="matchesList"></div>
       </div>
     </section>
 
-    <section class="card history-card">
-      <h2>Recent Analysis History</h2>
-      <div id="history"></div>
+    <section class="card">
+      <div class="section-header">
+        <div>
+          <h2>Community Reports</h2>
+          <p class="muted">Search, filter, and manage lost/found item reports.</p>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search item, location, description..." oninput="renderApp()" />
+
+        <select id="filterType" onchange="renderApp()">
+          <option value="All">All Types</option>
+          <option value="Lost">Lost</option>
+          <option value="Found">Found</option>
+        </select>
+
+        <select id="filterCategory" onchange="renderApp()">
+          <option value="All">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Wallet / Money">Wallet / Money</option>
+          <option value="ID / Card">ID / Card</option>
+          <option value="Bag">Bag</option>
+          <option value="Keys">Keys</option>
+          <option value="Books / Notes">Books / Notes</option>
+          <option value="Clothing">Clothing</option>
+          <option value="Others">Others</option>
+        </select>
+      </div>
+
+      <div id="reportsList"></div>
     </section>
   </main>
 
