@@ -4,130 +4,235 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>FindIt - Smart Lost & Found Hub</title>
+  <title>FindIt Pro — Smart Lost & Found Hub</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="app">
     <section class="hero">
-      <span class="tag">Community Impact Project</span>
-      <h1>FindIt — Smart Lost & Found Hub</h1>
-      <p>
-        Report lost or found items, track community reports, and use AI-style matching
-        to suggest possible matches between lost and found items.
-      </p>
+      <div>
+        <span class="eyebrow">Community Impact Project</span>
+        <h1>FindIt Pro</h1>
+        <p>
+          Report lost and found items, track cases, detect possible matches, manage return status,
+          and generate AI-style recovery actions for a safer community lost and found workflow.
+        </p>
 
-      <div class="hero-actions">
-        <button onclick="scrollToForm()">Report Item</button>
-        <button class="secondary" onclick="loadSampleData()">Load Sample Data</button>
+        <div class="hero-actions">
+          <button onclick="scrollToReportForm()">Report Item</button>
+          <button class="ghost" onclick="loadSampleData()">Load Sample Data</button>
+          <button class="ghost" onclick="exportCSV()">Export CSV</button>
+          <button class="ghost" onclick="exportJSON()">Export JSON</button>
+          <button class="danger" onclick="resetAllData()">Reset All Data</button>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <span>Recovery Score</span>
+        <h2 id="recoveryScore">0%</h2>
+        <p id="recoveryInsight">Start by adding reports.</p>
+        <div class="progress-bg">
+          <div id="recoveryBar"></div>
+        </div>
       </div>
     </section>
 
-    <section class="stats">
+    <section class="stats-grid">
       <div class="stat-card">
-        <p>Total Reports</p>
-        <h2 id="totalReports">0</h2>
+        <span>Total Reports</span>
+        <strong id="totalReports">0</strong>
       </div>
 
       <div class="stat-card">
-        <p>Lost Items</p>
-        <h2 id="lostCount">0</h2>
+        <span>Lost Items</span>
+        <strong id="lostItems">0</strong>
       </div>
 
       <div class="stat-card">
-        <p>Found Items</p>
-        <h2 id="foundCount">0</h2>
+        <span>Found Items</span>
+        <strong id="foundItems">0</strong>
       </div>
 
       <div class="stat-card">
-        <p>Possible Matches</p>
-        <h2 id="matchCount">0</h2>
+        <span>Possible Matches</span>
+        <strong id="possibleMatches">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Open Cases</span>
+        <strong id="openCases">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Resolved Cases</span>
+        <strong id="resolvedCases">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Urgent Reports</span>
+        <strong id="urgentReports">0</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Categories</span>
+        <strong id="categoryCount">0</strong>
       </div>
     </section>
 
     <section class="layout">
-      <div class="card" id="reportForm">
+      <div class="panel" id="reportForm">
         <h2>Report Lost / Found Item</h2>
 
-        <label for="type">Report Type</label>
-        <select id="type">
-          <option value="Lost">Lost Item</option>
-          <option value="Found">Found Item</option>
+        <label for="reportType">Report Type</label>
+        <select id="reportType">
+          <option>Lost Item</option>
+          <option>Found Item</option>
         </select>
 
-        <label for="title">Item Name</label>
-        <input type="text" id="title" placeholder="Example: Black wallet, iPhone, Student ID card" />
+        <label for="itemName">Item Name</label>
+        <input id="itemName" type="text" placeholder="Example: Black wallet, iPhone, student ID card" />
 
-        <label for="category">Category</label>
-        <select id="category">
-          <option value="Electronics">Electronics</option>
-          <option value="Wallet / Money">Wallet / Money</option>
-          <option value="ID / Card">ID / Card</option>
-          <option value="Bag">Bag</option>
-          <option value="Keys">Keys</option>
-          <option value="Books / Notes">Books / Notes</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Others">Others</option>
-        </select>
+        <div class="mini-grid">
+          <div>
+            <label for="category">Category</label>
+            <select id="category">
+              <option>Electronics</option>
+              <option>Wallet / Money</option>
+              <option>ID / Card</option>
+              <option>Keys</option>
+              <option>Bag</option>
+              <option>Book / Document</option>
+              <option>Clothing</option>
+              <option>Accessories</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="priority">Priority</label>
+            <select id="priority">
+              <option>Normal</option>
+              <option>High</option>
+              <option>Urgent</option>
+            </select>
+          </div>
+        </div>
 
         <label for="location">Last Seen / Found Location</label>
-        <input type="text" id="location" placeholder="Example: Library, Cafeteria, Block A" />
+        <input id="location" type="text" placeholder="Example: Library Level 2, Cafeteria, Block A" />
 
-        <label for="date">Date</label>
-        <input type="date" id="date" />
+        <div class="mini-grid">
+          <div>
+            <label for="date">Date</label>
+            <input id="date" type="date" />
+          </div>
+
+          <div>
+            <label for="time">Approx. Time</label>
+            <input id="time" type="time" />
+          </div>
+        </div>
 
         <label for="contact">Contact Info</label>
-        <input type="text" id="contact" placeholder="Example: email, phone number, Instagram, office counter" />
+        <input id="contact" type="text" placeholder="Example: email, phone number, Instagram, office counter" />
 
         <label for="description">Description / Keywords</label>
-        <textarea id="description" placeholder="Example: black leather wallet with student card inside"></textarea>
+        <textarea id="description" placeholder="Example: black leather wallet with student card and bank card inside"></textarea>
 
-        <button onclick="addReport()">Submit Report</button>
-        <button class="dark" onclick="exportJSON()">Export Data</button>
-        <button class="danger" onclick="resetData()">Reset All Data</button>
+        <label for="photoUrl">Photo / Reference Link Optional</label>
+        <input id="photoUrl" type="url" placeholder="Example: Google Drive image link or item photo URL" />
+
+        <button onclick="submitReport()">Submit Report</button>
+        <button class="secondary" onclick="clearForm()">Clear Form</button>
       </div>
 
-      <div class="card">
+      <div class="panel">
         <h2>AI-Style Match Suggestions</h2>
         <p class="muted">
-          The system compares item name, category, location, and description keywords.
+          The system compares item name, category, location, date, description keywords, and priority.
         </p>
 
-        <div id="matchesList"></div>
+        <div id="matchesList">
+          <div class="empty-box">
+            <h3>No matches yet</h3>
+            <p>Add both lost and found reports to generate possible matches.</p>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="card">
-      <div class="section-header">
-        <div>
-          <h2>Community Reports</h2>
-          <p class="muted">Search, filter, and manage lost/found item reports.</p>
+    <section class="layout second">
+      <div class="panel">
+        <h2>Case Management Insight</h2>
+
+        <div class="insight-box">
+          <h3 id="aiTitle">No insight yet</h3>
+          <p id="aiText">Add reports to receive AI-style next action suggestions.</p>
+        </div>
+
+        <h3>Category Breakdown</h3>
+        <div id="categoryBreakdown">
+          <p class="muted">No category data yet.</p>
         </div>
       </div>
 
-      <div class="filters">
-        <input type="text" id="searchInput" placeholder="Search item, location, description..." oninput="renderApp()" />
+      <div class="panel">
+        <h2>Recovery Toolkit</h2>
 
-        <select id="filterType" onchange="renderApp()">
-          <option value="All">All Types</option>
-          <option value="Lost">Lost</option>
-          <option value="Found">Found</option>
-        </select>
+        <div class="toolkit-grid">
+          <button onclick="copyNoticeTemplate()">Copy Notice Template</button>
+          <button onclick="copyContactMessage()">Copy Contact Message</button>
+          <button onclick="printReport()">Print Report</button>
+          <button onclick="markOldOpenCases()">Flag Old Open Cases</button>
+        </div>
 
-        <select id="filterCategory" onchange="renderApp()">
-          <option value="All">All Categories</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Wallet / Money">Wallet / Money</option>
-          <option value="ID / Card">ID / Card</option>
-          <option value="Bag">Bag</option>
-          <option value="Keys">Keys</option>
-          <option value="Books / Notes">Books / Notes</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Others">Others</option>
-        </select>
+        <div class="notice-box">
+          <h3>Suggested Workflow</h3>
+          <ol>
+            <li>Collect item details and contact information.</li>
+            <li>Review AI-style matches above 70% first.</li>
+            <li>Verify ownership using unique item details.</li>
+            <li>Mark both reports as resolved once returned.</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">
+        <div>
+          <h2>Community Reports</h2>
+          <p>Search, filter, manage, resolve, and review lost/found reports.</p>
+        </div>
+
+        <div class="filters">
+          <input id="searchInput" type="text" placeholder="Search item, location, description..." oninput="renderApp()" />
+
+          <select id="filterType" onchange="renderApp()">
+            <option>All Types</option>
+            <option>Lost Item</option>
+            <option>Found Item</option>
+          </select>
+
+          <select id="filterCategory" onchange="renderApp()">
+            <option>All Categories</option>
+          </select>
+
+          <select id="filterStatus" onchange="renderApp()">
+            <option>All Status</option>
+            <option>Open</option>
+            <option>Resolved</option>
+            <option>Flagged</option>
+          </select>
+        </div>
       </div>
 
-      <div id="reportsList"></div>
+      <div id="reportsList" class="reports-list">
+        <div class="empty-box wide">
+          <h3>No reports found</h3>
+          <p>Add or load sample reports to start managing lost and found items.</p>
+        </div>
+      </div>
     </section>
   </main>
 
