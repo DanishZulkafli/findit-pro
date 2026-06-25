@@ -1,8 +1,8 @@
-# FindIt — Smart Lost & Found Community Hub
+# FindIt Pro — Smart Lost & Found Hub
 
-FindIt is a smart lost and found community web application that helps users report lost/found items and uses AI-style matching to suggest possible item matches.
+FindIt Pro is a static, interactive lost and found management system for communities, schools, universities, offices, and public spaces. Users can report lost and found items, review possible matches, track open/resolved cases, and export report data.
 
-This project is fully deployable using GitHub Pages.
+This project is built using HTML, CSS, JavaScript, and LocalStorage. It can be deployed directly using GitHub Pages without GitHub Actions.
 
 ## Live Demo
 
@@ -10,46 +10,45 @@ Live project: https://danishzulkafli.github.io/findit-smart-lost-found-hub/
 
 ## Features
 
-- Report lost items
-- Report found items
+- Lost item report form
+- Found item report form
+- Category and priority selection
+- Location, date, time, and contact tracking
+- Optional photo/reference link
+- AI-style match suggestions
+- Match scoring by item name, category, location, date, and keywords
+- Mark both matched reports as resolved
+- Open, resolved, and flagged case statuses
+- Recovery score dashboard
+- Total reports, lost items, found items, matches, open cases, resolved cases, urgent reports, and categories
+- AI-style case management insight
+- Category breakdown chart
 - Search reports
 - Filter by report type
 - Filter by category
-- AI-style item matching score
-- Match explanation based on category, title, location, date, and description keywords
-- Mark report as resolved
-- Reopen resolved report
-- Delete report
-- Dashboard statistics
+- Filter by status
+- Copy public notice template
+- Copy contact message template
+- Flag open cases older than 14 days
+- Export reports as CSV
+- Export reports as JSON
+- Print report
 - Load sample data
-- Export data as JSON
-- Reset all data
-- LocalStorage data persistence
-- Responsive layout
-- GitHub Pages ready
+- Reset data
+- LocalStorage persistence
+- Responsive interface
+- GitHub Pages deployment without GitHub Actions
 
-## Categories
+## Matching Logic
 
-- Electronics
-- Wallet / Money
-- ID / Card
-- Bag
-- Keys
-- Books / Notes
-- Clothing
-- Others
-
-## How the AI-Style Matching Works
-
-The system compares lost and found reports based on:
+The system calculates possible matches using:
 
 - Same category
 - Similar item name
-- Similar location
 - Matching description keywords
+- Similar location
 - Close date range
-
-Each possible match receives a score from 0% to 100%.
+- Urgent report priority
 
 ## Tech Stack
 
@@ -59,24 +58,35 @@ Each possible match receives a score from 0% to 100%.
 - LocalStorage
 - GitHub Pages
 
-## Purpose
+## Use Cases
 
-This project was created to help communities such as universities, schools, offices, hostels, events, and residential areas manage lost and found items more effectively.
+FindIt Pro can be used by:
 
-It demonstrates frontend development, local data storage, search/filter logic, matching algorithm, dashboard statistics, and social impact use case.
+- Universities
+- Schools
+- Offices
+- Coworking spaces
+- Events
+- Hostels
+- Libraries
+- Community centers
+
+## Important Note
+
+This app stores data in the browser using LocalStorage. It is suitable for portfolio, demo, and small-scale static use. For real production use, a backend database and proper authentication should be added.
 
 ## Future Improvements
 
-- User login
-- Admin moderation
+- Admin login
+- Real database integration
 - Image upload
-- QR code item claim
-- Email notification
-- Real database
-- Map-based location tagging
-- Real AI matching
-- PWA offline support
-- Multi-campus support
+- QR code for item reports
+- Email/SMS notification
+- Public claim form
+- Claim verification workflow
+- Multi-location dashboard
+- PWA offline mode
+- PDF report export
 
 ## Author
 
